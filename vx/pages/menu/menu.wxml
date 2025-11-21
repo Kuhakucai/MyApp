@@ -1,0 +1,84 @@
+<!-- 选款页 -->
+<view class="menu-page">
+  <!-- 分类侧边栏 -->
+  <scroll-view scroll-y="{{true}}" class="category-sidebar">
+    <view 
+      class="category-item {{activeCategory === item.id ? 'active' : ''}}" 
+      wx:for="{{categories}}" 
+      wx:key="id"
+      bindtap="selectCategory"
+      data-id="{{item.id}}"
+    >
+      <text class="category-icon">{{item.icon}}</text>
+      <text class="category-name">{{item.name}}</text>
+    </view>
+  </scroll-view>
+
+  <!-- 商品列表 -->
+  <scroll-view scroll-y="{{true}}" class="product-list" scroll-into-view="{{scrollIntoView}}">
+    <view class="category-section" wx:for="{{categories}}" wx:key="id" id="category-{{item.id}}" wx:for-item="category">
+      <view class="category-title">{{category.name}}</view>
+      <view class="product-grid">
+        <block wx:for="{{products}}" wx:key="id" wx:for-item="product">
+          <view 
+            class="product-card" 
+            wx:if="{{product.category === category.id}}"
+            bindtap="showProductDetail"
+            data-product="{{product}}"
+          >
+            <image src="{{product.image}}" mode="aspectFill" class="product-image"></image>
+            <view class="product-info">
+              <text class="product-name">{{product.name}}</text>
+              <text class="product-desc">{{product.desc}}</text>
+              <view class="product-footer">
+                <text class="price">
+                  <text class="price-symbol">¥</text>{{product.price}}
+                </text>
+                <view class="add-cart-btn" catchtap="addToCart" data-product="{{product}}">
+                  <text>+</text>
+                </view>
+              </view>
+            </view>
+            <view class="hot-tag" wx:if="{{product.hot}}">🔥{{i18n.menu.hot}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 购物车底栏 -->
+  <view class="cart-bar" wx:if="{{cartTotal > 0}}">
+    <view class="cart-info" bindtap="goToCart">
+      <view class="cart-icon-wrapper">
+        🛒
+        <view class="cart-count">{{cartCount}}</view>
+      </view>
+      <view class="cart-price">
+        <text class="price-symbol">¥</text>{{cartTotal.toFixed(2)}}
+      </view>
+    </view>
+    <view class="checkout-btn" bindtap="goToCart">
+      {{i18n.menu.checkout}}
+    </view>
+  </view>
+</view>
+
+<!-- 商品详情弹窗 -->
+<view class="product-modal {{showModal ? 'show' : ''}}" catchtap="hideModal">
+  <view class="modal-content" catchtap="stopPropagation">
+    <view class="modal-close" bindtap="hideModal">×</view>
+    <image src="{{selectedProduct.image}}" mode="aspectFill" class="modal-image"></image>
+    <view class="modal-info">
+      <text class="modal-name">{{selectedProduct.name}}</text>
+      <text class="modal-desc">{{selectedProduct.desc}}</text>
+      <view class="modal-footer">
+        <text class="price">
+          <text class="price-symbol">¥</text>{{selectedProduct.price}}
+        </text>
+        <view class="add-to-cart-btn" bindtap="addToCartFromModal">
+          {{i18n.menu.addToCart}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

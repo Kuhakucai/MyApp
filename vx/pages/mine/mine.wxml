@@ -1,0 +1,79 @@
+<!-- 个人中心 -->
+<view class="mine-page">
+  <!-- 用户信息 -->
+  <view class="user-card">
+    <view class="user-avatar">👤</view>
+    <view class="user-info">
+      <text class="user-name">{{i18n.mine.userName}}</text>
+      <text class="user-desc">{{i18n.mine.userDesc}}</text>
+    </view>
+  </view>
+
+  <!-- 订单统计 -->
+  <view class="stats-card card">
+    <view class="stats-item" bindtap="goToOrders" data-status="pending">
+      <text class="stats-icon">⏳</text>
+      <text class="stats-count">{{orderStats.pending}}</text>
+      <text class="stats-label">{{i18n.order.status.pending}}</text>
+    </view>
+    <view class="stats-item" bindtap="goToOrders" data-status="preparing">
+      <text class="stats-icon">💅</text>
+      <text class="stats-count">{{orderStats.preparing}}</text>
+      <text class="stats-label">{{i18n.order.status.preparing}}</text>
+    </view>
+    <view class="stats-item" bindtap="goToOrders" data-status="completed">
+      <text class="stats-icon">✅</text>
+      <text class="stats-count">{{orderStats.completed}}</text>
+      <text class="stats-label">{{i18n.order.status.completed}}</text>
+    </view>
+  </view>
+
+  <!-- 功能列表 -->
+  <view class="menu-section card">
+    <view class="menu-item" bindtap="goToOrders">
+      <view class="menu-icon">📋</view>
+      <text class="menu-text">{{i18n.mine.myOrder}}</text>
+      <text class="menu-arrow">></text>
+    </view>
+    <view class="menu-item" bindtap="showCoupon">
+      <view class="menu-icon">🎫</view>
+      <text class="menu-text">{{i18n.mine.myCoupon}}</text>
+      <text class="menu-badge" wx:if="{{couponCount > 0}}">{{couponCount}}</text>
+      <text class="menu-arrow">></text>
+    </view>
+    <view class="menu-item" bindtap="showAddress">
+      <view class="menu-icon">⭐</view>
+      <text class="menu-text">{{i18n.mine.myFavorite}}</text>
+      <text class="menu-arrow">></text>
+    </view>
+  </view>
+
+  <view class="menu-section card">
+    <view class="menu-item" bindtap="showShopInfo">
+      <view class="menu-icon">🏪</view>
+      <text class="menu-text">{{i18n.mine.shopInfo}}</text>
+      <text class="menu-arrow">></text>
+    </view>
+    <view class="menu-item" bindtap="showContact">
+      <view class="menu-icon">💬</view>
+      <text class="menu-text">{{i18n.mine.contact}}</text>
+      <text class="menu-arrow">></text>
+    </view>
+    <view class="menu-item" bindtap="goToLanguage">
+      <view class="menu-icon">🌐</view>
+      <text class="menu-text">{{i18n.mine.language}}</text>
+      <text class="menu-sub-text">{{currentLanguageName}}</text>
+      <text class="menu-arrow">></text>
+    </view>
+    <view class="menu-item" bindtap="showAbout">
+      <view class="menu-icon">ℹ️</view>
+      <text class="menu-text">{{i18n.mine.about}}</text>
+      <text class="menu-arrow">></text>
+    </view>
+  </view>
+
+  <!-- 版本信息 -->
+  <view class="version-info">
+    <text class="version-text">{{i18n.mine.version}}</text>
+  </view>
+</view>

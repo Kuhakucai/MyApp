@@ -1,0 +1,20 @@
+<!-- 语言设置 -->
+<view class="language-page">
+  <view class="language-list">
+    <view 
+      class="language-item {{currentLang === item.code ? 'active' : ''}}"
+      wx:for="{{languages}}"
+      wx:key="code"
+      bindtap="selectLanguage"
+      data-code="{{item.code}}"
+    >
+      <view class="language-info">
+        <text class="language-name">{{item.nativeName}}</text>
+        <text class="language-code">{{item.name}}</text>
+      </view>
+      <view class="language-check" wx:if="{{currentLang === item.code}}">
+        <text class="check-icon">✓</text>
+      </view>
+    </view>
+  </view>
+</view>

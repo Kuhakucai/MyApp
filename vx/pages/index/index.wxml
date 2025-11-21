@@ -1,0 +1,89 @@
+<!-- 首页 -->
+<view class="index-page">
+  <!-- 轮播图 -->
+  <view class="banner">
+    <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="3000" duration="500" circular="{{true}}">
+      <swiper-item wx:for="{{banners}}" wx:key="index">
+        <image src="{{item}}" mode="aspectFill" class="banner-image"></image>
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <!-- 门店信息 -->
+  <view class="shop-info card">
+    <view class="shop-header">
+      <text class="shop-name">{{i18n.shop.name}}</text>
+      <view class="shop-status">
+        <text class="status-dot"></text>
+        <text class="status-text">{{i18n.index.openStatus}}</text>
+      </view>
+    </view>
+    <view class="shop-detail">
+      <text class="detail-item">📍 {{i18n.shop.address}}</text>
+      <text class="detail-item">🕐 {{i18n.shop.openTime}}</text>
+      <text class="detail-item">📞 {{i18n.shop.phone}}</text>
+    </view>
+  </view>
+
+  <!-- 快捷入口 -->
+  <view class="quick-nav">
+    <view class="nav-item" bindtap="goToMenu">
+      <view class="nav-icon" style="background: linear-gradient(135deg, #FF69B4 0%, #FFB6C1 100%)">💅</view>
+      <text class="nav-text">{{i18n.index.quickNav.menu}}</text>
+    </view>
+    <view class="nav-item" bindtap="goToOrder">
+      <view class="nav-icon" style="background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%);">📋</view>
+      <text class="nav-text">{{i18n.index.quickNav.order}}</text>
+    </view>
+    <view class="nav-item" bindtap="goToCart">
+      <view class="nav-icon" style="background: linear-gradient(135deg, #FF1493 0%, #FF69B4 100%);">🛒</view>
+      <text class="nav-text">{{i18n.index.quickNav.cart}}</text>
+      <view class="badge" wx:if="{{cartCount > 0}}">{{cartCount}}</view>
+    </view>
+    <view class="nav-item" bindtap="showContact">
+      <view class="nav-icon" style="background: linear-gradient(135deg, #DDA0DD 0%, #DA70D6 100%);">💬</view>
+      <text class="nav-text">{{i18n.index.quickNav.contact}}</text>
+    </view>
+  </view>
+
+  <!-- 热门款式 -->
+  <view class="hot-section">
+    <view class="section-header">
+      <text class="section-title">🔥 {{i18n.index.hotProducts}}</text>
+      <text class="section-more" bindtap="goToMenu">{{i18n.index.viewMore}} ></text>
+    </view>
+    <scroll-view scroll-x="{{true}}" class="hot-list">
+      <view class="hot-item" wx:for="{{hotProducts}}" wx:key="id" bindtap="goToMenu">
+        <image src="{{item.image}}" mode="aspectFill" class="hot-image"></image>
+        <view class="hot-info">
+          <text class="hot-name">{{item.name}}</text>
+          <view class="hot-footer">
+            <text class="price"><text class="price-symbol">￥</text>{{item.price}}</text>
+            <text class="hot-sales">{{i18n.index.sales}} {{item.sales}}</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 活动信息 -->
+  <view class="activity-section card">
+    <view class="activity-header">
+      <text class="activity-title">🎁 {{i18n.index.activity.title}}</text>
+    </view>
+    <view class="activity-list">
+      <view class="activity-item">
+        <view class="activity-tag">{{i18n.index.activity.discount}}</view>
+        <text class="activity-text">{{i18n.index.activity.discount1}}</text>
+      </view>
+      <view class="activity-item">
+        <view class="activity-tag">{{i18n.index.activity.sale}}</view>
+        <text class="activity-text">{{i18n.index.activity.discount2}}</text>
+      </view>
+      <view class="activity-item">
+        <view class="activity-tag">{{i18n.index.activity.gift}}</view>
+        <text class="activity-text">{{i18n.index.activity.discount3}}</text>
+      </view>
+    </view>
+  </view>
+</view>

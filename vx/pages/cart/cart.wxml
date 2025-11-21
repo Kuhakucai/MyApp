@@ -1,0 +1,77 @@
+<!-- 已选服务 -->
+<view class="cart-page">
+  <!-- 已选服务 -->
+  <view wx:if="{{cartItems.length > 0}}">
+    <!-- 服务列表 -->
+    <scroll-view scroll-y="{{true}}" class="cart-list">
+      <view class="cart-item" wx:for="{{cartItems}}" wx:key="id">
+        <image src="{{item.image}}" mode="aspectFill" class="item-image"></image>
+        <view class="item-info">
+          <text class="item-name">{{item.name}}</text>
+          <text class="item-desc">{{item.desc}}</text>
+          <view class="item-footer">
+            <text class="price">
+              <text class="price-symbol">¥</text>{{item.price}}
+            </text>
+            <view class="quantity-control">
+              <view class="control-btn" bindtap="decreaseQuantity" data-id="{{item.id}}">-</view>
+              <text class="quantity">{{item.quantity}}</text>
+              <view class="control-btn" bindtap="increaseQuantity" data-id="{{item.id}}">+</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- 优惠信息 -->
+    <view class="discount-section card">
+      <view class="discount-item">
+        <text class="discount-label">💰 优惠券</text>
+        <text class="discount-value">暂无可用</text>
+      </view>
+      <view class="discount-item">
+        <text class="discount-label">🎁 满减优惠</text>
+        <text class="discount-value primary-color">-¥{{discount.toFixed(2)}}</text>
+      </view>
+    </view>
+
+    <!-- 结算信息 -->
+    <view class="summary-section card">
+      <view class="summary-item">
+        <text class="summary-label">{{i18n.cart.subtotal}}</text>
+        <text class="summary-value">¥{{subtotal.toFixed(2)}}</text>
+      </view>
+      <view class="summary-item">
+        <text class="summary-label">{{i18n.cart.discount}}</text>
+        <text class="summary-value primary-color">-¥{{discount.toFixed(2)}}</text>
+      </view>
+      <view class="divider"></view>
+      <view class="summary-item total">
+        <text class="summary-label">{{i18n.cart.total}}</text>
+        <text class="summary-value price">¥{{total.toFixed(2)}}</text>
+      </view>
+    </view>
+
+    <!-- 底部结算栏 -->
+    <view class="checkout-bar">
+      <view class="total-info">
+        <text class="total-label">{{i18n.cart.total}}：</text>
+        <text class="price">
+          <text class="price-symbol">¥</text>{{total.toFixed(2)}}
+        </text>
+      </view>
+      <view class="checkout-btn" bindtap="checkout">
+        {{i18n.cart.submit}}（{{totalQuantity}}）
+      </view>
+    </view>
+  </view>
+
+  <!-- 未选服务 -->
+  <view wx:else class="empty-state">
+    <text class="empty-icon">💅</text>
+    <text class="empty-text">{{i18n.cart.empty}}</text>
+    <view class="go-shopping-btn" bindtap="goToMenu">
+      {{i18n.cart.goShopping}}
+    </view>
+  </view>
+</view>

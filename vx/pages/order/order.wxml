@@ -1,0 +1,47 @@
+<!-- 预约列表 -->
+<view class="order-page">
+  <!-- 有预约 -->
+  <view wx:if="{{orders.length > 0}}">
+    <scroll-view scroll-y="{{true}}" class="order-list">
+      <view class="order-card" wx:for="{{orders}}" wx:key="orderNo" bindtap="goToDetail" data-orderno="{{item.orderNo}}">
+        <!-- 预约头部 -->
+        <view class="order-header">
+          <text class="order-no">{{i18n.order.orderNo}}：{{item.orderNo}}</text>
+          <view class="order-status {{item.status}}">
+            <text>{{item.statusText}}</text>
+          </view>
+        </view>
+
+        <!-- 服务列表 -->
+        <view class="order-items">
+          <view class="order-item-row" wx:for="{{item.items}}" wx:key="id" wx:for-item="product">
+            <image src="{{product.image}}" mode="aspectFill" class="item-thumb"></image>
+            <view class="item-detail">
+              <text class="item-name">{{product.name}}</text>
+              <text class="item-spec">×{{product.quantity}}</text>
+            </view>
+            <text class="item-price">¥{{product.price}}</text>
+          </view>
+        </view>
+
+        <!-- 预约底部 -->
+        <view class="order-footer">
+          <view class="order-time">{{item.createTime}}</view>
+          <view class="order-total">
+            <text class="total-label">{{i18n.order.detail.paid}}：</text>
+            <text class="price">¥{{item.total.toFixed(2)}}</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 无预约 -->
+  <view wx:else class="empty-state">
+    <text class="empty-icon">📋</text>
+    <text class="empty-text">{{i18n.order.empty}}</text>
+    <view class="go-shopping-btn" bindtap="goToMenu">
+      {{i18n.order.goShopping}}
+    </view>
+  </view>
+</view>

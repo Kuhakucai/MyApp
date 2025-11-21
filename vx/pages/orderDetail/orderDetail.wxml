@@ -1,0 +1,75 @@
+<!-- 预约详情 -->
+<view class="order-detail-page">
+  <!-- 预约状态 -->
+  <view class="status-card {{order.status}}">
+    <view class="status-icon">
+      <text wx:if="{{order.status === 'pending'}}">⏳</text>
+      <text wx:elif="{{order.status === 'preparing'}}">💅</text>
+      <text wx:elif="{{order.status === 'completed'}}">✅</text>
+      <text wx:else>❌</text>
+    </view>
+    <view class="status-info">
+      <text class="status-text">{{order.statusText}}</text>
+      <text class="status-desc" wx:if="{{order.status === 'pending'}}">预约已提交，请稍候</text>
+      <text class="status-desc" wx:elif="{{order.status === 'preparing'}}">美甲师正在为您服务</text>
+      <text class="status-desc" wx:elif="{{order.status === 'completed'}}">服务已完成，期待再次光临</text>
+      <text class="status-desc" wx:else>预约已取消</text>
+    </view>
+  </view>
+
+  <!-- 预约信息 -->
+  <view class="info-card card">
+    <view class="info-header">
+      <text class="info-title">预约信息</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">预约单号</text>
+      <text class="info-value">{{order.orderNo}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">预约时间</text>
+      <text class="info-value">{{order.createTime}}</text>
+    </view>
+  </view>
+
+  <!-- 服务清单 -->
+  <view class="items-card card">
+    <view class="items-header">
+      <text class="items-title">服务清单</text>
+    </view>
+    <view class="item-row" wx:for="{{order.items}}" wx:key="id">
+      <image src="{{item.image}}" mode="aspectFill" class="item-image"></image>
+      <view class="item-info">
+        <text class="item-name">{{item.name}}</text>
+        <text class="item-desc">{{item.desc}}</text>
+      </view>
+      <text class="item-quantity">×{{item.quantity}}</text>
+      <text class="item-price">¥{{item.price}}</text>
+    </view>
+  </view>
+
+  <!-- 费用明细 -->
+  <view class="cost-card card">
+    <view class="cost-header">
+      <text class="cost-title">费用明细</text>
+    </view>
+    <view class="cost-row">
+      <text class="cost-label">服务小计</text>
+      <text class="cost-value">¥{{order.subtotal.toFixed(2)}}</text>
+    </view>
+    <view class="cost-row">
+      <text class="cost-label">优惠减免</text>
+      <text class="cost-value primary-color">-¥{{order.discount.toFixed(2)}}</text>
+    </view>
+    <view class="divider"></view>
+    <view class="cost-row total">
+      <text class="cost-label">实付金额</text>
+      <text class="price">¥{{order.total.toFixed(2)}}</text>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-bar" wx:if="{{order.status === 'pending'}}">
+    <view class="action-btn cancel" bindtap="cancelOrder">取消预约</view>
+  </view>
+</view>
